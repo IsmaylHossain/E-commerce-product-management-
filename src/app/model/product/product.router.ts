@@ -1,7 +1,7 @@
 //import { Product } from './product.interface';
 
 import express from "express";
-import { ProductController } from "./product.controller";
+import { ProductController } from "./product.controll";
 
 
 const router = express.Router();

@@ -1,22 +1,28 @@
-import { OrderRoutes } from './app/model/order/order.route';
-import { ProductRoutes } from './app/model/product/product.route';
+
+import { OrderRoutes } from './app/model/order/order.router';
+
+import { ProductRoutes } from './app/model/product/product.router';
+
 import express, { NextFunction, Request, Response } from "express";
 //  import { ProductRoutes } from "./app/model/product/product";
 //  import { OrderRoutes } from "./order.route";
+
 export const app = express();
 
 app.use(express.json());
+
   app.use("/api/products", ProductRoutes);
 
   app.use("/api/orders", OrderRoutes);
 
  app.get("/", (req: Request, res: Response) => {
-  res.send("Server is running!");
+
+  res.send("The Server is running now!");
 });
 
-app.all("*", (req, res, next) => {
+app.all("*", (req:Request , res:Response, next:NextFunction ) => {
 
-  const error = new Error(`This route did not find  please enter correct route [${req.url}]`);
+  const error = new Error(`router not find  enter correct route [${req.url}]`);
   (error as any).status = 404;
   next(error);
 });
@@ -24,6 +30,8 @@ app.all("*", (req, res, next) => {
 app.use((err: any, req: Request, res: Response,next:NextFunction) => {
 
   res.status(err.status || 500).json({
+
+    success: false,
     message: err.message,
   });
 });

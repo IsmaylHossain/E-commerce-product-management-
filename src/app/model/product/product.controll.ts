@@ -1,20 +1,19 @@
-//
 
  import { Request, Response } from "express";
-import { ProductServices } from "./product.service";
+import { ProductService } from "./product.service";
 
  import mongoose from "mongoose"; 
 
-import { TProductsSchema } from "./product.validates";
-
+// import { TProductsSchema } from "./product.validates";
+import { ProductsSchema } from "../validation/validation";
 
  const createProduct = async (req: Request, res: Response) => {
   try {
 
     const productData = req.body;
-    const zodParseData= TProductsSchema.parse(productData);
+    const  ParseData= ProductsSchema.parse(productData);
 
-    const result = await ProductServices.createProductIntoDb(zodParseData);
+    const result = await ProductService.createProductIntodb( ParseData);
 
     res.json({
 
@@ -40,11 +39,11 @@ import { TProductsSchema } from "./product.validates";
     const queryId = req.query.searchTerm;
 
     if (queryId) {
-      const result = await ProductServices.getSearchDocumentFromDb(
+      const result = await ProductService.getSearchDocumentFromdb(
         queryId as string
       );
        res.json({
-        message: "Products matching search term 'iphone' fetched successfully!",
+        message: " products matching successfully!",
 
         success: true,
         data: result,
@@ -55,7 +54,7 @@ import { TProductsSchema } from "./product.validates";
     }
 
 
-     const result = await ProductServices.getAllProductFromDb();
+     const result = await ProductService.getAllProductFromdb();
     res.json({
       success: true,
       message: "found all successfully!",
@@ -78,7 +77,7 @@ import { TProductsSchema } from "./product.validates";
     const stringId = req.params.productId;
     const paramId = new mongoose.Types.ObjectId(stringId);
 
-    const result = await ProductServices.getSingleProductFromDb(paramId);
+    const result = await ProductService.getSingleProductFromdb(paramId);
 
     res.json({
       success: true,
@@ -98,13 +97,13 @@ import { TProductsSchema } from "./product.validates";
 const updateSingleProduct = async (req: Request, res: Response) => {
   try {
     const productData = req.body;
-    const zodParseData= TProductsSchema.parse(productData);
+    const  ParseData= ProductsSchema.parse(productData);
 
     const id = new mongoose.Types.ObjectId(req.params.productId);
 
     console.log(id);
 
-     const result = await ProductServices.updateProductIntoDb(id, zodParseData);
+     const result = await ProductService.updateProductIntodb(id,  ParseData);
 
     res.json({
 
@@ -131,13 +130,13 @@ const deleteProductById = async (req: Request, res: Response) => {
 
     const productIdWithObjId = new mongoose.Types.ObjectId(productId);
 
-    const result = await ProductServices.deleteProductByIdFromDb(
+    const result = await ProductService.deleteProductByIdFromdb(
       productIdWithObjId
     );
 
     res.json({
       success: true,
-       message: "delete successfully!",
+       message: "delet successfully!",
 
       data:null,
 
@@ -151,7 +150,7 @@ const deleteProductById = async (req: Request, res: Response) => {
 };
  
 
-export const ProductController = {
+ export const ProductController = {
   createProduct,
 
   getAllProduct,

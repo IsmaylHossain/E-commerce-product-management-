@@ -2,15 +2,15 @@ import { Request, Response } from "express";
 
 import { OrderServices } from "./order.service";
 
-import { OrderSchema } from "./order.validates";
-
+import { OrderSchema } from "../validation/validation";
+ 
  
 const createOrder = async (req: Request, res: Response) => {
   try {
     const orderInfo = req.body;
 
     const zodValidateParser = OrderSchema.parse(orderInfo);
-    const result = await OrderServices.createOrderIntoDb(zodValidateParser);
+    const result = await OrderServices.createOrderIntodb(zodValidateParser);
 
     res.status(200).json({
       success: true,
@@ -35,15 +35,15 @@ const getallOrder = async (req: Request, res: Response) => {
     console.log(queryEmail);
     let result;
     if (typeof queryEmail == "string" && queryEmail) {
-      result = await OrderServices.getAllOrdeFromDb(queryEmail);
+      result = await OrderServices.getAllOrdeFromdb(queryEmail);
     } else {
-      result = await OrderServices.getAllOrdeFromDb();
+      result = await OrderServices.getAllOrdeFromdb();
     }
 
     res.status(200).json({
       success: true,
 
-      message: "Order get  successfully!",
+      message: "Ordered  successfully!",
 
       data: result,
     });

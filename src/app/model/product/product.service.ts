@@ -1,31 +1,31 @@
 // import { ProductModel } from './product.model';
 // import { Product } from './product.interface';
  
-///
 import { Product } from "./product.model";
 import { Products } from "./product.interface";
+
 import mongoose from "mongoose";
 
-const createProductIntoDb = async (payload: Products) => {
+const createProductIntodb = async (payload: Products) => {
   const result = await Product.create(payload);
   return result;
 };
  
 
-const getAllProductFromDb = async () => {
+const getAllProductFromdb = async () => {
   const result = await Product.find();
   return result;
 };
  
 
-  const getSingleProductFromDb = async (payload: mongoose.Types.ObjectId) => {
+  const getSingleProductFromdb = async (payload: mongoose.Types.ObjectId) => {
   const result = await Product.findById(payload);
 
   return result;
 };
  
 
-const updateProductIntoDb = async (
+const updateProductIntodb = async (
   productId: mongoose.Types.ObjectId,
 
   payload: Products
@@ -47,16 +47,13 @@ const updateProductIntoDb = async (
 
 };
 
- 
-
-const deleteProductByIdFromDb = async (id: mongoose.Types.ObjectId) => {
+const deleteProductByIdFromdb = async (id: mongoose.Types.ObjectId) => {
   const result = await Product.deleteOne(id);
   return result;
 };
 
-
-const getSearchDocumentFromDb = async (queryId: string) => {
-  console.log(queryId,'iam inside db');
+const getSearchDocumentFromdb = async (queryId: string) => {
+  console.log(queryId,'Product found');
 
   const result = await Product.aggregate([
     
@@ -66,13 +63,13 @@ const getSearchDocumentFromDb = async (queryId: string) => {
   return result;
 };
 
-export const ProductServices = {
-  createProductIntoDb,
+export const ProductService = {
+  createProductIntodb,
   
-   getAllProductFromDb,
-  getSingleProductFromDb,
+   getAllProductFromdb,
+  getSingleProductFromdb,
 
-  updateProductIntoDb,
-deleteProductByIdFromDb,
-  getSearchDocumentFromDb,
+  updateProductIntodb,
+deleteProductByIdFromdb,
+  getSearchDocumentFromdb,
 };

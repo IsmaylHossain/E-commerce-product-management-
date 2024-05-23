@@ -5,18 +5,18 @@ import { TOrder } from "./order.interface";
 
 import { Order } from "./order.model";
 
-   const createOrderIntoDb = async (payload: TOrder) => {
+   const createOrderIntodb = async (payload: TOrder) => {
    const productId = payload.productId;
 
 
-  const isexistProduct = await Product.findOne({ _id: productId });
+  const isProduct = await Product.findOne({ _id: productId });
 
-  if (!isexistProduct) {
+  if (!isProduct) {
     
-    throw new Error("Invalid productId(userid). Product ID does not exist.");
+    throw new Error("Product id does not found.");
   }
 
-  if (isexistProduct.inventory.quantity < payload.quantity) {
+  if (isProduct.inventory.quantity < payload.quantity) {
 
     throw new Error("Insufficient quantity");
   }
@@ -25,7 +25,7 @@ import { Order } from "./order.model";
     throw new Error("Quantity must positive number.");
   }
 
-  if (isexistProduct) {
+  if (isProduct) {
 
     const result = await Order.create(payload);
 
@@ -36,7 +36,7 @@ import { Order } from "./order.model";
         $set: {
           "inventory.inStock":
 
-            isexistProduct.inventory.quantity - payload.quantity > 0,
+            isProduct.inventory.quantity - payload.quantity > 0,
         },
       }
     );
@@ -46,8 +46,7 @@ import { Order } from "./order.model";
 };
 
  
-
-const getAllOrdeFromDb = async (emailQuery?: string) => {
+const getAllOrdeFromdb = async (emailQuery?: string) => {
   if (emailQuery) {
     const result = await Order.find({ email: emailQuery });
     return result;
@@ -59,7 +58,7 @@ const getAllOrdeFromDb = async (emailQuery?: string) => {
 };
 
 export const OrderServices = {
-  createOrderIntoDb,
+  createOrderIntodb,
   
-  getAllOrdeFromDb,
+  getAllOrdeFromdb,
 };
