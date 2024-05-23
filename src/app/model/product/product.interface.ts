@@ -1,17 +1,16 @@
 //import mongoose from "mongoose";
 //
 
+ export type Inventory = {
+  quantity: number;
+
+   inStock: boolean;
+ };
+
  export type Variant = {
      type: string;
     value: string;
   };
-  
-   export type Inventory = {
-    quantity: number;
-
-     inStock: boolean;
-  };
-
   
   export type Products = {
     name: string;

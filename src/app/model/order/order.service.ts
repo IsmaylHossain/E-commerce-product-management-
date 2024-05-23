@@ -5,6 +5,18 @@ import { TOrder } from "./order.interface";
 
 import { Order } from "./order.model";
 
+const getAllOrdeFromdb = async (emailQuery?: string) => {
+  if (emailQuery) {
+    const result = await Order.find({ email: emailQuery });
+    return result;
+  }
+ 
+
+  const result = await Order.find();
+  
+  return result;
+};
+
    const createOrderIntodb = async (payload: TOrder) => {
    const productId = payload.productId;
 
@@ -46,16 +58,7 @@ import { Order } from "./order.model";
 };
 
  
-const getAllOrdeFromdb = async (emailQuery?: string) => {
-  if (emailQuery) {
-    const result = await Order.find({ email: emailQuery });
-    return result;
-  }
- 
 
-  const result = await Order.find();
-  return result;
-};
 
 export const OrderServices = {
   createOrderIntodb,

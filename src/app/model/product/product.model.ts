@@ -6,6 +6,13 @@ import { Schema, model } from "mongoose";
 
  import { Inventory,Products, Variant } from "./product.interface";  
 
+ const inventory = new Schema<Inventory>({
+
+  quantity: { type: Number },
+
+  inStock: Boolean,
+});
+
 const variants = new Schema<Variant>({
 
   type: String,
@@ -13,12 +20,7 @@ const variants = new Schema<Variant>({
   value: String,
 });
 
-const inventory = new Schema<Inventory>({
 
-  quantity: { type: Number },
-
-  inStock: Boolean,
-});
 
 const productSchema = new Schema<Products>({
   name: { type: String, required: true },

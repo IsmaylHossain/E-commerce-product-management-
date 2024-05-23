@@ -157,6 +157,7 @@ const deleteProductById = async (req: Request, res: Response) => {
 getSingleProduct ,
 
   updateSingleProduct,
+
   deleteProductById
 
 };

@@ -1,9 +1,9 @@
 
 //import TOrder  from "./order.interface";
+import { TOrder } from "./order.interface";
 
 import mongoose, { Schema, model } from "mongoose";
 
-import { TOrder } from "./order.interface";
 
 const orderSchema = new Schema<TOrder>({
 

@@ -23,6 +23,17 @@ const getAllProductFromdb = async () => {
 
   return result;
 };
+
+const getSearchDocumentFromdb = async (queryId: string) => {
+  console.log(queryId,'Product found');
+
+  const result = await Product.aggregate([
+    
+    { $match: { $text: { $search: queryId } } }
+  ]);
+
+  return result;
+};
  
 
 const updateProductIntodb = async (
@@ -52,16 +63,7 @@ const deleteProductByIdFromdb = async (id: mongoose.Types.ObjectId) => {
   return result;
 };
 
-const getSearchDocumentFromdb = async (queryId: string) => {
-  console.log(queryId,'Product found');
 
-  const result = await Product.aggregate([
-    
-    { $match: { $text: { $search: queryId } } }
-  ]);
-
-  return result;
-};
 
 export const ProductService = {
   createProductIntodb,
